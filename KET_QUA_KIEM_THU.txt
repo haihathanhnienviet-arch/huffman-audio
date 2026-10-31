@@ -1,0 +1,17 @@
+Python 3.12.14
+test_100_random_pcm_wavs (test_huffman_audio.AudioHuffmanTests.test_100_random_pcm_wavs) ... ok
+test_core_empty_and_single_symbol (test_huffman_audio.AudioHuffmanTests.test_core_empty_and_single_symbol) ... ok
+test_hau1_errors (test_huffman_audio.AudioHuffmanTests.test_hau1_errors) ... ok
+test_metadata_preserved (test_huffman_audio.AudioHuffmanTests.test_metadata_preserved) ... ok
+test_prefix_free (test_huffman_audio.AudioHuffmanTests.test_prefix_free) ... ok
+test_reject_non_wav_and_truncated_pcm (test_huffman_audio.AudioHuffmanTests.test_reject_non_wav_and_truncated_pcm) ... ok
+test_size_determinism_payload_bound (test_huffman_audio.AudioHuffmanTests.test_size_determinism_payload_bound) ... ok
+test_textbook_payload (test_huffman_audio.AudioHuffmanTests.test_textbook_payload) ... ok
+test_wav_roundtrips (test_huffman_audio.AudioHuffmanTests.test_wav_roundtrips) ... ok
+
+----------------------------------------------------------------------
+Ran 9 tests in 0.279s
+
+OK
+
+CLI WAV roundtrip: cmp returned exit code 0.
