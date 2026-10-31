@@ -1,4 +1,4 @@
-# BÀI KIỂM TRA GIỮA KỲ – MÔN THUẬT TOÁN NÂNG CAO
+﻿# BÀI KIỂM TRA GIỮA KỲ – MÔN THUẬT TOÁN NÂNG CAO
 ## Đề tài: Nén không mất mát tệp âm thanh WAV PCM bằng mã Huffman
 
 **Loại dữ liệu được chọn:** tệp âm thanh.  
@@ -325,9 +325,7 @@ Chức năng các hàm:
 
 ## 8. GitHub
 
-**Liên kết GitHub: CHƯA CÓ – chưa tải mã nguồn lên kho GitHub.**
-
-Đề yêu cầu mã nguồn trên GitHub. Trước khi nộp, học viên cần tạo hoặc chọn kho thuộc tài khoản của mình, đưa các tệp mã nguồn, hướng dẫn, bài giải và kết quả thử lên đó, rồi thay dòng trên bằng URL thật. Trong lần làm này chưa tạo kho hoặc tải mã lên tài khoản nào; không có liên kết minh họa được dùng như liên kết đã tồn tại.
+**Liên kết GitHub: https://github.com/haihathanhnienviet-arch/huffman-audio**
 
 ## 9. Kết luận
 
@@ -339,3 +337,4 @@ Bài làm áp dụng Huffman theo byte cho tệp WAV PCM để nén không mất
 2. Đề BÀI KIỂM TRA GIỮA KỲ.pdf do người học cung cấp, trang 1.
 3. Python Software Foundation. *wave — Read and write WAV files*, tài liệu Python 3.12. Nguồn: https://docs.python.org/3.12/library/wave.html . Đối chiếu phạm vi PCM và các hàm đọc tham số/frame ngày 31/10/2026.
 4. Microsoft Learn. *WAVEFORMATEX structure (mmeapi.h)*. Nguồn: https://learn.microsoft.com/en-us/windows/win32/api/mmeapi/ns-mmeapi-waveformatex . Đối chiếu số kênh, tần số lấy mẫu và công thức block alignment ngày 31/10/2026.
+
