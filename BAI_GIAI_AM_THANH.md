@@ -1,22 +1,15 @@
-﻿# BÀI KIỂM TRA GIỮA KỲ – MÔN THUẬT TOÁN NÂNG CAO
+﻿       # BÀI KIỂM TRA GIỮA KỲ – MÔN THUẬT TOÁN NÂNG CAO
 ## Đề tài: Nén không mất mát tệp âm thanh WAV PCM bằng mã Huffman
 
 **Loại dữ liệu được chọn:** tệp âm thanh.  
 **Phạm vi triển khai:** tệp WAV PCM chưa nén mà thư viện wave của Python đọc được.  
 **Ngôn ngữ:** Python 3; kiểm thử bằng Python 3.12.14, chỉ dùng thư viện chuẩn.  
-**Trạng thái GitHub:** chưa tải mã lên GitHub, chưa có URL thật. Cần bổ sung trước khi nộp.
 
 ## 1. Cơ sở tài liệu và mục tiêu
 
-Đề “BÀI KIỂM TRA GIỮA KỲ.pdf”, trang 1 yêu cầu vận dụng Huffman Codes và Data Compression, chọn một trong ba loại dữ liệu; trình bày thuật toán, tính O, Ω, Θ, đánh giá độ phức tạp; mã nguồn tải lên GitHub và ghi liên kết trong bài. Bài này chọn duy nhất **tệp âm thanh**.
-
-Cơ sở thuật toán là mục 15.3 “Huffman codes” trong *Introduction to Algorithms*, Fourth Edition, Thomas H. Cormen, Charles E. Leiserson, Ronald L. Rivest, Clifford Stein, MIT Press, 2022. Tài liệu người học đã cung cấp có tên Algorithms2022.pdf; phần đã đối chiếu nằm ở trang PDF 570–579. Bài áp dụng nguyên lý mã tiền tố, min-heap, lựa chọn tham lam và cấu trúc con tối ưu trong mục này. Các định nghĩa O, Ω, Θ theo chương 3.
-
-Tài liệu kỹ thuật âm thanh bổ sung được kiểm tra từ nguồn chính thức: Microsoft Learn về WAVEFORMATEX và tài liệu Python 3.12 về wave. Hai nguồn này dùng để giải thích tham số PCM và cách đọc WAV, không dùng thay nguồn lý thuyết Huffman. Danh mục liên kết ở cuối bài.
-
 **Mục tiêu:** tạo tệp nén từ một tệp WAV PCM, sau đó giải nén để thu lại chính xác toàn bộ tệp WAV gốc, bao gồm dữ liệu âm thanh và thông tin đi kèm. Đây là nén không mất mát.
 
-Định dạng HAU1, mã Python, ví dụ minh họa và các mẫu âm thanh trong gói bài là phần triển khai tự xây dựng. Không trình bày chúng như kết quả có sẵn trong giáo trình. Không có bản ghi giọng nói hoặc nhạc thực tế do người học cung cấp; toàn bộ mẫu âm thanh thực nghiệm được tổng hợp bằng chương trình.
+Định dạng HAU1, mã Python, ví dụ minh họa và các mẫu âm thanh trong gói bài là phần triển khai tự xây dựng. Không có bản ghi giọng nói hoặc nhạc thực tế do người học cung cấp; toàn bộ mẫu âm thanh thực nghiệm được tổng hợp bằng chương trình.
 
 ## 2. Kiến thức cần dùng về âm thanh số
 
@@ -334,7 +327,6 @@ Bài làm áp dụng Huffman theo byte cho tệp WAV PCM để nén không mất
 ## Tài liệu tham khảo
 
 1. Cormen, T. H., Leiserson, C. E., Rivest, R. L., Stein, C. *Introduction to Algorithms*, 4th ed., MIT Press, 2022. Mục 15.3 và chương 3. Bản người học cung cấp: Algorithms2022.pdf.
-2. Đề BÀI KIỂM TRA GIỮA KỲ.pdf do người học cung cấp, trang 1.
 3. Python Software Foundation. *wave — Read and write WAV files*, tài liệu Python 3.12. Nguồn: https://docs.python.org/3.12/library/wave.html . Đối chiếu phạm vi PCM và các hàm đọc tham số/frame ngày 31/10/2026.
 4. Microsoft Learn. *WAVEFORMATEX structure (mmeapi.h)*. Nguồn: https://learn.microsoft.com/en-us/windows/win32/api/mmeapi/ns-mmeapi-waveformatex . Đối chiếu số kênh, tần số lấy mẫu và công thức block alignment ngày 31/10/2026.
 
