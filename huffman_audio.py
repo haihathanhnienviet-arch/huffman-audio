@@ -114,11 +114,43 @@ def decompress_bytes(blob):
     return bytes(out)
 
 
+def wav_data_size(data):
+    """Doc kich thuoc chunk data trong RIFF/WAVE, khong dung thuoc tinh rieng.
+
+    Chap nhan chunk cuoi le khong co byte dem, nhu tep do wave tao ra.
+    Chi ho tro mot chunk data, tuong ung cach wave doc am thanh.
+    """
+    if len(data) < 12 or data[:4] != b'RIFF' or data[8:12] != b'WAVE':
+        raise ValueError('Tep khong phai RIFF/WAVE duoc ho tro')
+    riff_end = 8 + struct.unpack_from('<I', data, 4)[0]
+    if riff_end < 12 or riff_end > len(data):
+        raise ValueError('Kich thuoc RIFF khong hop le hoac tep bi cat')
+    offset = 12
+    data_size = None
+    while offset < riff_end:
+        if offset + 8 > riff_end:
+            raise ValueError('Header chunk WAV bi thieu')
+        chunk_id = data[offset:offset + 4]
+        size = struct.unpack_from('<I', data, offset + 4)[0]
+        end = offset + 8 + size
+        if end > riff_end:
+            raise ValueError('Du lieu chunk WAV bi thieu')
+        if chunk_id == b'data':
+            if data_size is not None:
+                raise ValueError('Khong ho tro WAV co nhieu chunk data')
+            data_size = size
+        offset = end if end == riff_end else end + (size & 1)
+    if data_size is None:
+        raise ValueError('WAV thieu chunk data')
+    return data_size
+
+
 def wav_info(data):
     """Doc WAV PCM duoc wave ho tro, kiem tra du so byte frame khai bao.
 
     Chi doc de xac nhan; khong ghi lai WAV nen giu nguyen metadata.
     """
+    data_size = wav_data_size(data)
     try:
         with wave.open(io.BytesIO(data), 'rb') as audio:
             channels = audio.getnchannels()
@@ -129,13 +161,18 @@ def wav_info(data):
                 raise ValueError('Thong so WAV khong hop le')
             if audio.getcomptype() != 'NONE':
                 raise ValueError('Chi ho tro WAV PCM khong nen')
+            frame_size = channels * width
+            if data_size % frame_size:
+                raise ValueError('Chunk data PCM khong chua tron ven cac frame')
+            if data_size != frames * frame_size:
+                raise ValueError('Kich thuoc PCM khong khop so frame')
             pcm = audio.readframes(frames)
-            if len(pcm) != frames * channels * width:
+            if len(pcm) != data_size:
                 raise ValueError('Du lieu PCM bi thieu so voi so frame khai bao')
             return {'channels': channels, 'sample_width_bytes': width,
                     'sample_rate_hz': rate, 'frames': frames,
                     'duration_seconds': frames / rate}
-    except (wave.Error, EOFError, struct.error) as exc:
+    except (wave.Error, EOFError, struct.error, RuntimeError) as exc:
         raise ValueError('Tep WAV PCM khong hop le hoac khong duoc ho tro') from exc
 
 
@@ -156,22 +193,24 @@ def main():
     parser.add_argument('input', type=Path)
     parser.add_argument('output', type=Path)
     args = parser.parse_args()
-    if args.input.resolve() == args.output.resolve():
-        parser.error('Tep nguon va tep dich phai khac nhau')
-    if args.output.exists():
-        parser.error('Tep dich da ton tai; hay chon ten khac')
-    source = args.input.read_bytes()
     try:
+        if args.input.resolve() == args.output.resolve():
+            raise ValueError('Tep nguon va tep dich phai khac nhau')
+        if args.output.exists():
+            raise ValueError('Tep dich da ton tai; hay chon ten khac')
+        source = args.input.read_bytes()
         if args.action == 'compress':
             info = wav_info(source)
             result = compress_bytes(source)
         else:
             result = decompress_wav(source)
             info = wav_info(result)
+        with args.output.open('xb') as stream:
+            stream.write(result)
     except ValueError as exc:
         parser.error(str(exc))
-    with args.output.open('xb') as stream:
-        stream.write(result)
+    except OSError as exc:
+        parser.error(f'Khong the doc/ghi tep: {exc}')
     print(f'Input: {len(source)} bytes; output: {len(result)} bytes')
     print(f'WAV: {info}')
     if args.action == 'compress':
